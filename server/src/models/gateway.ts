@@ -1,4 +1,6 @@
-import { getModelForClass, pre, prop } from "@typegoose/typegoose";
+import { getModelForClass, Ref, prop } from "@typegoose/typegoose";
+
+import { Peripheral } from "./peripheral";
 
 const ipAddrExp: RegExp = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
@@ -11,6 +13,9 @@ export class Gateway {
 
   @prop({ required: true, match: ipAddrExp })
   public ipAddr!: string;
+
+  @prop({ ref: () => Peripheral, foreignField: "gateway", localField: "_id" })
+  public peropherals: Ref<Peripheral>[];
 }
 
-export const GatewayModel = getModelForClass(Gateway);
+export default getModelForClass(Gateway);

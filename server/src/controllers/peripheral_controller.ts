@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Peripheral, PeripheralModel } from "../models/peripheral";
+import PeripheralModel, { Peripheral } from "../models/peripheral";
 
 // GET /peripherals
 export async function index(req: Request, res: Response) {

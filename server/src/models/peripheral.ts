@@ -1,4 +1,4 @@
-import { getModelForClass, prop } from "@typegoose/typegoose";
+import { getModelForClass, Ref, prop } from "@typegoose/typegoose";
 
 export class Peripheral {
   @prop()
@@ -11,4 +11,4 @@ export class Peripheral {
   public date: Date;
 }
 
-export const PeripheralModel = getModelForClass(Peripheral);
+export default getModelForClass(Peripheral);

@@ -1,16 +1,27 @@
 GET http://localhost:8080/api/gateways
 
 ###
-
-GET http://localhost:8080/api/gateways/1
+GET http://localhost:8080/api/gateways/5f92f9486987ce1940d8d466
 
 ###
-
 POST http://localhost:8080/api/gateways
 Content-Type: application/json
 
 {
   "name": "tres",
   "ipAddr": "10.2.3.12",
-  "serialNo":"f498395ts3p4"
+  "serialNo":"f498395tss3p4"
 }
+
+###
+PUT http://localhost:8080/api/gateways/5f92f9486987ce1940d8d466
+Content-Type: application/json
+
+{
+  "name": "tres",
+  "ipAddr": "10.2.3.12",
+  "serialNo":"f498395tss3p4"
+}
+
+###
+DELETE http://localhost:8080/api/gateways/5f92f9486987ce1940d8d466

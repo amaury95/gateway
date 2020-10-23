@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Gateway, GatewayModel } from "../models/gateway";
+import GatewayModel from "../models/gateway";
 
 // GET /gateways
 export async function index(req: Request, res: Response) {
@@ -21,7 +21,7 @@ export async function show(req: Request, res: Response) {
 
 // POST /gateways
 export async function create(req: Request, res: Response) {
-  const model = new GatewayModel(req.body as Gateway);
+  const model = new GatewayModel(req.body);
   try {
     await model.save();
     res.status(201).send(model);
@@ -50,7 +50,7 @@ export async function destroy(req: Request, res: Response) {
 
 // MIDDLEWARES
 export async function set_gateway(req: Request, res: Response, next: NextFunction) {
-  const gateway = new Gateway();
+  const gateway = new GatewayModel();
   gateway.name = "fake name";
 
   // @ts-ignore
