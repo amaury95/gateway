@@ -1,14 +1,20 @@
 import express from "express";
+import dotenv from "dotenv";
+import router from "./router";
+import mongoose from "mongoose";
+
+dotenv.config();
+const port = process.env.SERVER_PORT;
+
+mongoose.connect(process.env.MONGO_ADDR, { useNewUrlParser: true });
+
 const app = express();
-const port = 8080; // default port to listen
 
-// define a route handler for the default home page
-app.get( "/", ( req, res ) => {
-    res.send( "Hello world!" );
-} );
+app.use(express.json());
 
-// start the Express server
-app.listen( port, () => {
+app.use("/api", router);
+
+app.listen(port, () => {
   // tslint:disable-next-line:no-console
-  console.log( `server started at http://localhost:${ port }` );
-} );
+  console.log(`server started at http://localhost:${port}`);
+});

@@ -1,0 +1,16 @@
+GET http://localhost:8080/api/gateways
+
+###
+
+GET http://localhost:8080/api/gateways/1
+
+###
+
+POST http://localhost:8080/api/gateways
+Content-Type: application/json
+
+{
+  "name": "tres",
+  "ipAddr": "10.2.3.12",
+  "serialNo":"f498395ts3p4"
+}
