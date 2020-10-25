@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import router from "./router";
 import mongoose from "mongoose";
+import router from "./router";
 
 dotenv.config();
 const port = process.env.SERVER_PORT;

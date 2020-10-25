@@ -1,0 +1,45 @@
+{
+  "gateways": [
+    {
+      "id": "1",
+      "serial": "1",
+      "name": "gateway1",
+      "address": "10.2.1.1"
+    },
+    {
+      "id": "2",
+      "serial": "2",
+      "name": "gateway2",
+      "address": "10.2.1.1"
+    }
+  ],
+  "peripherals": [
+    {
+      "id": "1",
+      "uid": "1",
+      "gatewaySerial": "1",
+      "gatewayId": "1",
+      "vendor": "vendor1",
+      "created": "date",
+      "status": 1
+    },
+    {
+      "id": "2",
+      "uid": "2",
+      "gatewaySerial": "1",
+      "gatewayId": "1",
+      "vendor": "vendor2",
+      "created": "date",
+      "status": 0
+    },
+    {
+      "id": "3",
+      "uid": "3",
+      "gatewaySerial": "2",
+      "gatewayId": "2",
+      "vendor": "vendor3",
+      "created": "date",
+      "status": 0
+    }
+  ]
+}
