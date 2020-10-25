@@ -1,5 +1,4 @@
-import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString } from "graphql";
-import axios from "axios";
+import { GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString } from "graphql";
 import { Gateway, GatewayType } from "../types/gateway";
 import { Peripheral, PeripheralStatusType, PeripheralType } from "../types/peripheral";
 

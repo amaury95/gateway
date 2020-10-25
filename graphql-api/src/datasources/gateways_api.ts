@@ -1,5 +1,5 @@
 import { RESTDataSource } from "apollo-datasource-rest";
-import Axios from "axios";
+import { Peripheral } from "../types/peripheral";
 import { Gateway } from "../types/gateway";
 
 export default class GatewayAPI extends RESTDataSource {
@@ -26,5 +26,9 @@ export default class GatewayAPI extends RESTDataSource {
 
   async destroyGateway(id: string): Promise<Gateway> {
     return await this.delete(`gateways/${id}`);
+  }
+
+  async getPeripherals(id: string): Promise<Peripheral> {
+    return await this.get(`gateways/${id}/peripherals`);
   }
 }

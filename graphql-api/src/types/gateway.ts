@@ -1,11 +1,5 @@
-import {
-  GraphQLID,
-  GraphQLList,
-  GraphQLObjectType,
-  GraphQLString,
-} from "graphql";
+import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString } from "graphql";
 import { Peripheral, PeripheralType } from "./peripheral";
-import axios from "axios";
 
 export type Gateway = {
   id: string;
@@ -39,13 +33,8 @@ export const GatewayType = new GraphQLObjectType({
         fields: {
           peripherals: {
             type: GraphQLList(PeripheralType),
-            resolve: async (source: Gateway): Promise<Peripheral[]> => {
-              const resp = await axios.get<Peripheral[]>(
-                `http://localhost:3000/gateways/${source.serial}/peripherals`
-              );
-
-              return resp.data;
-            },
+            resolve: async (source: Gateway, _args, { dataSources }) =>
+              dataSources.gatewaysAPI.getPeripherals(source.id),
           },
         },
       }),

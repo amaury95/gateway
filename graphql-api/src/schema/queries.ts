@@ -1,8 +1,7 @@
 import { GraphQLID, GraphQLList, GraphQLObjectType } from "graphql";
-import axios from "axios";
 
-import { GatewayType, Gateway } from "../types/gateway";
-import { PeripheralType, Peripheral } from "../types/peripheral";
+import { GatewayType } from "../types/gateway";
+import { PeripheralType } from "../types/peripheral";
 
 export default new GraphQLObjectType({
   name: "Query",
