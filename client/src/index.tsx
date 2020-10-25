@@ -1,14 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import * as serviceWorker from "./serviceWorker";
+import App from "./App";
+
+import "./index.css";
+import "semantic-ui-css/semantic.min.css";
+import StoreProvider from "store";
+import { ApolloProvider } from "@apollo/client";
+import client from "apollo";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StoreProvider>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </StoreProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

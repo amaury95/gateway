@@ -30,7 +30,7 @@ export async function create(req: Request, res: Response) {
   }
 }
 
-// PUT /gateways/1
+// PATCH /gateways/1
 export async function update(req: Request, res: Response) {
   // @ts-ignore
   const gateway: Gateway = req.gateway;
@@ -47,6 +47,9 @@ export async function destroy(req: Request, res: Response) {
   const data = "host";
   res.send({ data });
 }
+
+// GET /gateways/1/peripherals
+export async function peripherals(req: Request, res: Response) {}
 
 // MIDDLEWARES
 export async function set_gateway(req: Request, res: Response, next: NextFunction) {

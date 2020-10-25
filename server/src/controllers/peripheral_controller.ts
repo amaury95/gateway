@@ -30,7 +30,7 @@ export async function create(req: Request, res: Response) {
   }
 }
 
-// PUT /peripherals/1
+// PATCH /peripherals/1
 export async function update(req: Request, res: Response) {
   // @ts-ignore
   const peripheral: Peripheral = req.peripheral;

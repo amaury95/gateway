@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
+import BaseLayout from "layouts/Base";
+import Gateways from "views/gateways/List";
+import { Store } from "store";
+import { createMuiTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
+import { defaultTheme } from "themes/default";
+import GatewaysProvider from "views/gateways/Provider";
 
 function App() {
+  const { state } = useContext(Store);
+
+  const theme = createMuiTheme({
+    ...defaultTheme,
+    palette: {
+      ...defaultTheme.palette,
+      type: state.theme,
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-        
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <BaseLayout>
+        <GatewaysProvider />
+      </BaseLayout>
+    </ThemeProvider>
   );
 }
 
