@@ -1,6 +1,7 @@
 import {
   GraphQLEnumType,
   GraphQLID,
+  GraphQLInt,
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
@@ -19,6 +20,7 @@ export const PeripheralStatusType = new GraphQLEnumType({
 });
 
 export type Peripheral = {
+  id: string;
   uid: number;
   gatewayId: string;
   vendor: string;
@@ -29,13 +31,17 @@ export type Peripheral = {
 export const PeripheralType = new GraphQLObjectType({
   name: "Peripheral",
   fields: {
-    uid: {
+    id: {
       type: GraphQLID,
-      resolve: (source: Peripheral): number => source.uid,
+      resolve: (source: Peripheral): string => source.id,
     },
     gatewayId: {
       type: GraphQLString,
       resolve: (source: Peripheral): string => source.gatewayId,
+    },
+    uid: {
+      type: GraphQLInt,
+      resolve: (source: Peripheral): number => source.uid,
     },
     vendor: {
       type: GraphQLString,
