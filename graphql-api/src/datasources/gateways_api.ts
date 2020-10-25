@@ -25,10 +25,10 @@ export default class GatewayAPI extends RESTDataSource {
   }
 
   async destroyGateway(id: string): Promise<Gateway> {
-    return await this.delete(`gateways/${id}`);
+    return this.delete(`gateways/${id}`);
   }
 
   async getPeripherals(id: string): Promise<Peripheral> {
-    return await this.get(`gateways/${id}/peripherals`);
+    return this.get(`gateways/${id}/peripherals`);
   }
 }
