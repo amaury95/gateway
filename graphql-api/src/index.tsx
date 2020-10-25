@@ -2,8 +2,8 @@ import { ApolloServer } from "apollo-server";
 import { GraphQLSchema } from "graphql";
 import GatewayAPI from "./datasources/gateways_api";
 import PeripheralAPI from "./datasources/peripherals_api";
-import mutations from "./resolvers/mutations";
-import queries from "./resolvers/queries";
+import mutations from "./schema/mutations";
+import queries from "./schema/queries";
 
 const server = new ApolloServer({
   schema:new GraphQLSchema({
