@@ -1,6 +1,7 @@
 import { GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString } from "graphql";
 import { Gateway, GatewayType } from "../types/gateway";
 import { Peripheral, PeripheralStatusType, PeripheralType } from "../types/peripheral";
+import { GATEWAY_CREATED, PERIPHERAL_CREATED, pubsub } from "./subscriptions";
 
 export default new GraphQLObjectType({
   name: "Mutation",
@@ -13,7 +14,11 @@ export default new GraphQLObjectType({
         name: { type: GraphQLString },
         address: { type: GraphQLString },
       },
-      resolve: async (_source, args: Gateway, { dataSources }) => dataSources.gatewaysAPI.createGateway(args),
+      resolve: async (_source, args: Gateway, { dataSources }) => {
+        const data = dataSources.gatewaysAPI.createGateway(args);
+        pubsub.publish(GATEWAY_CREATED, { gatewayCreated: data });
+        return data;
+      },
     },
 
     // UPDATE GATEWAY
@@ -47,7 +52,11 @@ export default new GraphQLObjectType({
         created: { type: GraphQLString },
         status: { type: PeripheralStatusType },
       },
-      resolve: async (_source, args: Peripheral, { dataSources }) => dataSources.peripheralsAPI.createPeripheral(args),
+      resolve: async (_source, args: Peripheral, { dataSources }) => {
+        const data = dataSources.peripheralsAPI.createPeripheral(args);
+        pubsub.publish(PERIPHERAL_CREATED, { peripheralCreated: data });
+        return data;
+      },
     },
 
     // UPDATE PERIPHERAL

@@ -4,11 +4,13 @@ import GatewayAPI from "./datasources/gateways_api";
 import PeripheralAPI from "./datasources/peripherals_api";
 import mutations from "./schema/mutations";
 import queries from "./schema/queries";
+import subscriptions from "./schema/subscriptions";
 
 const server = new ApolloServer({
   schema:new GraphQLSchema({
     query: queries,
     mutation: mutations,
+    subscription: subscriptions,
   }),
   dataSources: ()=>({
     peripheralsAPI: new PeripheralAPI(),
