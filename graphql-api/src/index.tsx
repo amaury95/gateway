@@ -1,11 +1,12 @@
 import { ApolloServer } from "apollo-server";
 import { GraphQLSchema } from "graphql";
+import mutations from "./resolvers/mutations";
 import queries from "./resolvers/queries";
-import { PeripheralStatusType, PeripheralType } from "./types/peripheral";
 
 const server = new ApolloServer({
   schema:new GraphQLSchema({
-    query: queries
+    query: queries,
+    mutation: mutations,
   }),
 })
 

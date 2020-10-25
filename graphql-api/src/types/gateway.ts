@@ -8,6 +8,7 @@ import { Peripheral, PeripheralType } from "./peripheral";
 import axios from "axios";
 
 export type Gateway = {
+  id: string;
   serial: string;
   name: string;
   address: string;
@@ -16,8 +17,12 @@ export type Gateway = {
 export const GatewayType = new GraphQLObjectType({
   name: "Gateway",
   fields: {
-    serial: {
+    id: {
       type: GraphQLID,
+      resolve: (source: Gateway): string => source.id,
+    },
+    serial: {
+      type: GraphQLString,
       resolve: (source: Gateway): string => source.serial,
     },
     name: {

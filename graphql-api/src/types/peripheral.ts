@@ -20,7 +20,7 @@ export const PeripheralStatusType = new GraphQLEnumType({
 
 export type Peripheral = {
   uid: number;
-  gatewaySerial: string;
+  gatewayId: string;
   vendor: string;
   created: string;
   status: PeripheralStatus;
@@ -33,9 +33,9 @@ export const PeripheralType = new GraphQLObjectType({
       type: GraphQLID,
       resolve: (source: Peripheral): number => source.uid,
     },
-    gatewaySerial: {
+    gatewayId: {
       type: GraphQLString,
-      resolve: (source: Peripheral): string => source.gatewaySerial,
+      resolve: (source: Peripheral): string => source.gatewayId,
     },
     vendor: {
       type: GraphQLString,

@@ -3,7 +3,7 @@
     {
       "id": "1",
       "serial": "1",
-      "name": "gateway1",
+      "name": "new name 2",
       "address": "10.2.1.1"
     },
     {
@@ -17,7 +17,6 @@
     {
       "id": "1",
       "uid": "1",
-      "gatewaySerial": "1",
       "gatewayId": "1",
       "vendor": "vendor1",
       "created": "date",
@@ -26,7 +25,6 @@
     {
       "id": "2",
       "uid": "2",
-      "gatewaySerial": "1",
       "gatewayId": "1",
       "vendor": "vendor2",
       "created": "date",
@@ -35,7 +33,6 @@
     {
       "id": "3",
       "uid": "3",
-      "gatewaySerial": "2",
       "gatewayId": "2",
       "vendor": "vendor3",
       "created": "date",
