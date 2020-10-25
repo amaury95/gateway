@@ -54,7 +54,7 @@ export default new GraphQLObjectType({
       },
       resolve: async (_source, args: Peripheral, { dataSources }) => {
         const data = dataSources.peripheralsAPI.createPeripheral(args);
-        pubsub.publish(PERIPHERAL_CREATED, { peripheralCreated: data });
+        pubsub.publish(PERIPHERAL_CREATED(args.gatewayId), { peripheralCreated: data });
         return data;
       },
     },
