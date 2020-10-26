@@ -1,6 +1,9 @@
+
+# Get Gateways
 GET http://localhost:8000/api/gateways
 
 ###
+# Create Gateway
 POST http://localhost:8000/api/gateways
 Content-Type: application/json
 
@@ -11,20 +14,58 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/api/gateways/5f97207de3d9681e083aaac8
+# Get Gateway by Id
+GET http://localhost:8000/api/gateways/5f972f52915db213ccae7102
 
 ###
-PATCH http://localhost:8000/api/gateways/5f97207de3d9681e083aaac8
+# Edit Gateway
+PATCH http://localhost:8000/api/gateways/5f972f52915db213ccae7102
 Content-Type: application/json
 
 {
   "name": "Gateway",
   "address": "10.22.3.12",
-  "serial":"serial2"
+  "serial":"serial3"
+}
+
+# Get Peripherals
+### 
+GET http://localhost:8000/api/peripherals
+
+# Create Peripheral
+###
+POST http://localhost:8000/api/peripherals
+Content-Type: application/json
+
+{
+  "uid": 11,
+  "vendor": "vendor",
+  "created":"10/10/2020",
+  "gatewayId": "5f972f52915db213ccae7102"
 }
 
 ###
-GET http://localhost:8000/api/gateways/5f97207de3d9681e083aaac8/peripherals
+# Get Peripheral by Id
+GET http://localhost:8000/api/peripherals/5f972faa915db213ccae7103
 
 ###
-DELETE http://localhost:8000/api/gateways/5f97207de3d9681e083aaac8
+# Edit Peripheral
+PATCH http://localhost:8000/api/peripherals/5f972faa915db213ccae7103
+Content-Type: application/json
+
+{
+  "uid": 3,
+  "vendor": "edited vendor"
+}
+
+###
+# Delete Peripheral
+DELETE http://localhost:8000/api/peripherals/5f972faa915db213ccae7103
+
+###
+# Get Peripherals by Given Gateway
+GET http://localhost:8000/api/gateways/5f972f52915db213ccae7102/peripherals
+
+# Delete Gateway
+###
+DELETE http://localhost:8000/api/gateways/5f972f52915db213ccae7102

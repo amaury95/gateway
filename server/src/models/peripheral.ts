@@ -1,4 +1,4 @@
-import { getModelForClass, Ref, prop } from "@typegoose/typegoose";
+import { getModelForClass, prop } from "@typegoose/typegoose";
 
 export class Peripheral {
   @prop({ unique: true })
@@ -7,8 +7,8 @@ export class Peripheral {
   @prop()
   public vendor: string;
 
-  @prop()
-  public date: Date;
+  @prop({ immutable: true })
+  public created: Date;
 
   @prop()
   public gatewayId: string;

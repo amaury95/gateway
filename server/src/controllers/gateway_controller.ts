@@ -6,7 +6,7 @@ import { DocumentType } from "@typegoose/typegoose";
 export async function index(req: Request, res: Response) {
   await GatewayModel.find().exec((err, items) => {
     if (err) {
-      res.status(500).send(err);
+      res.status(500).send({ error: err.message });
     } else {
       res.json(items);
     }
@@ -25,7 +25,7 @@ export async function create(req: Request, res: Response) {
 
   await model.save((err, item) => {
     if (err) {
-      res.status(400).send(err);
+      res.status(400).send({ error: err.message });
     } else {
       res.status(201).json(item);
     }
@@ -38,14 +38,15 @@ export async function update(req: Request, res: Response) {
   const gateway = req.gateway as DocumentType<Gateway>;
 
   // Filtering parameters so cant be overriden _id or unwanted fields.
-  const { address, serial, name } = req.body as Gateway;
+  const model = {
+    address: req.body.address || gateway.address,
+    serial: req.body.serial || gateway.serial,
+    name: req.body.name || gateway.name,
+  };
 
-  // Replace parameters in the actual model.
-  gateway.overwrite({ address, serial, name });
-
-  await gateway.save((err, item) => {
+  await gateway.overwrite(model).save((err, item) => {
     if (err) {
-      res.status(400).send(err);
+      res.status(400).send({ error: err.message });
     } else {
       res.status(205).json(item);
     }
@@ -59,7 +60,7 @@ export async function destroy(req: Request, res: Response) {
 
   await gateway.remove((err, item) => {
     if (err) {
-      res.status(500).send(err);
+      res.status(500).send({ error: err.message });
     } else {
       // Remove gateway peripherals
       res.json(item);
@@ -74,7 +75,7 @@ export async function peripherals(req: Request, res: Response) {
 
   gateway.populate("peripherals", (err, item) => {
     if (err) {
-      res.status(500).send(err);
+      res.status(500).send({ error: err.message });
     } else {
       res.json(item.peripherals);
     }
@@ -89,7 +90,7 @@ export async function set_gateway(
 ) {
   await GatewayModel.findOne({ _id: req.params.id }).exec((err, item) => {
     if (err) {
-      res.status(500).send(err);
+      res.status(500).send({ error: err.message });
     } else if (item === null) {
       res.status(404).send({ error: "gateway not found" });
     } else {
