@@ -7,10 +7,10 @@ export class Peripheral {
   @prop()
   public vendor: string;
 
-  @prop({ immutable: true })
+  @prop({ immutable: true, default: Date.now })
   public created: Date;
 
-  @prop()
+  @prop({ required: true })
   public gatewayId: string;
 }
 

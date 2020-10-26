@@ -1,4 +1,4 @@
-import * as GatewayController from "./gateway_controller";
-import * as PeripheralController from "./peripheral_controller";
+import * as GatewayController from "./gateway.controller";
+import * as PeripheralController from "./peripheral.controller";
 
 export { GatewayController, PeripheralController };
