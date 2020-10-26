@@ -1,23 +1,41 @@
 {
   "gateways": [
     {
-      "id": "1",
-      "serial": "1",
-      "name": "new name 2",
-      "address": "10.2.1.1"
+      "serial": "123",
+      "name": "asd",
+      "address": "10.1.1.1",
+      "id": "V6qcENH"
     },
     {
-      "id": "2",
-      "serial": "2",
-      "name": "gateway2",
-      "address": "10.2.1.1"
+      "serial": "123",
+      "name": "asd",
+      "address": "10.1.1.1",
+      "id": "2pLSI9O"
+    },
+    {
+      "serial": "123",
+      "name": "asd",
+      "address": "10.1.1.1",
+      "id": "3Ea7ict"
+    },
+    {
+      "serial": "123",
+      "name": "asd",
+      "address": "10.1.1.1",
+      "id": "nIPP-z-"
+    },
+    {
+      "serial": "123",
+      "name": "asd",
+      "address": "10.1.1.1",
+      "id": "MQGb56t"
     }
   ],
   "peripherals": [
     {
       "id": "1",
       "uid": "1",
-      "gatewayId": "1",
+      "gatewayId": "2pLSI9O",
       "vendor": "vendor1",
       "created": "date",
       "status": 1
@@ -25,7 +43,7 @@
     {
       "id": "2",
       "uid": "2",
-      "gatewayId": "1",
+      "gatewayId": "2pLSI9O",
       "vendor": "vendor2",
       "created": "date",
       "status": 0
@@ -33,7 +51,7 @@
     {
       "id": "3",
       "uid": "3",
-      "gatewayId": "2",
+      "gatewayId": "MQGb56t",
       "vendor": "vendor3",
       "created": "date",
       "status": 0
