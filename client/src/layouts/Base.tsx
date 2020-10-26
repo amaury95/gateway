@@ -2,8 +2,6 @@ import { Container, makeStyles } from "@material-ui/core";
 import Footer from "components/footer";
 import Header from "components/header";
 import React, { FunctionComponent } from "react";
-import GatewayForm from "views/gateways/Form";
-import PeripheralForm from "views/peripherals/Form";
 
 const useStyles = makeStyles({
   content: {
@@ -16,8 +14,6 @@ const Base: FunctionComponent = ({ children }) => {
   return (
     <Container maxWidth="md">
       <Header />
-      <PeripheralForm />
-      <GatewayForm />
       <div className={classes.content}>{children}</div>
       <Footer />
     </Container>

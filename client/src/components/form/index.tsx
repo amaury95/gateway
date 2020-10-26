@@ -5,12 +5,30 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  makeStyles,
   Slide,
 } from "@material-ui/core";
+import { red } from "@material-ui/core/colors";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import React, { FunctionComponent } from "react";
 
-type FormDirection = "left" | "right" | "up" | "down";
+export const useStyles = makeStyles({
+  root: {
+    width: 300,
+  },
+  input: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  topRight: {
+    position: "absolute",
+    right: 10,
+    top: 10,
+  },
+  removeIcon: {
+    color: red[500],
+  },
+});
 
 export const TransitionUp = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -40,6 +58,7 @@ type FormProps = {
 
 const Form: FunctionComponent<FormProps> = (props) => {
   const { direction, open, handleClose, onSubmit } = props;
+  const classes = useStyles();
 
   return (
     <Dialog
@@ -52,7 +71,7 @@ const Form: FunctionComponent<FormProps> = (props) => {
       <DialogTitle id="alert-dialog-peripheral-title">
         {props.title}
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className={classes.root}>
         {props.description && (
           <DialogContentText id="alert-dialog-peripheral-description">
             {props.description}

@@ -1,5 +1,6 @@
 export interface Peripheral {
   id: string;
+  gatewayId: string;
   uid: number;
   vendor: string;
   created: string;
@@ -11,9 +12,6 @@ export interface Gateway {
   name: string;
   serial: string;
   address: string;
-}
-
-export interface GatewayEdges extends Gateway {
   edges: {
     peripherals: Peripheral[];
   };

@@ -8,11 +8,10 @@ import {
   TableRow,
 } from "@material-ui/core";
 import { Peripheral } from "models";
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useState } from "react";
 import CreateIcon from "@material-ui/icons/Create";
 import AddIcon from "@material-ui/icons/Add";
-import { SetPeripheralForm } from "store/actions";
-import { Store } from "store";
+import PeripheralForm from "./Form";
 
 type PeripheralsList = {
   items: Peripheral[];
@@ -21,21 +20,30 @@ type PeripheralsList = {
 };
 
 export default function PeripheralsList(props: PeripheralsList) {
-  const { dispatch } = useContext(Store);
-
-  const openForm = (item: Peripheral) =>
-    dispatch(SetPeripheralForm(item, "open"));
-
-  const [items, setItems] = useState(props.items);
+  const [showForm, setShowForm] = useState(false);
+  const [formTarget, setFormTarget] = useState({} as Peripheral);
+  const toggleShow = () => setShowForm(!showForm);
 
   return (
     <Fragment>
+      <PeripheralForm
+        open={showForm}
+        handleClose={toggleShow}
+        target={formTarget}
+        setTarget={setFormTarget}
+      />
       <Table aria-label="caption table">
         <caption>
           <Button
             color="primary"
             startIcon={<AddIcon />}
-            onClick={() => openForm({} as Peripheral)}
+            onClick={() => {
+              setFormTarget({
+                gatewayId: props.id,
+                status: "offline",
+              } as Peripheral);
+              setShowForm(true);
+            }}
           >
             Add Peripheral
           </Button>
@@ -43,23 +51,28 @@ export default function PeripheralsList(props: PeripheralsList) {
         <TableHead>
           <TableRow>
             <TableCell>Vendor</TableCell>
-            <TableCell align="center">Creation Time</TableCell>
+            <TableCell align="center">Creation Date</TableCell>
             <TableCell align="center">Uid</TableCell>
             <TableCell align="center">Connection Status</TableCell>
             <TableCell align="right">Edit Peripheral</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map((i) => (
-            <TableRow key={i.id}>
+          {props.items.map((item) => (
+            <TableRow key={item.id}>
               <TableCell component="th" scope="row">
-                {i.vendor}
+                {item.vendor}
               </TableCell>
-              <TableCell align="center">{i.created}</TableCell>
-              <TableCell align="center">{i.uid}</TableCell>
-              <TableCell align="center">{i.status}</TableCell>
+              <TableCell align="center">{item.created}</TableCell>
+              <TableCell align="center">{item.uid}</TableCell>
+              <TableCell align="center">{item.status}</TableCell>
               <TableCell align="right">
-                <IconButton onClick={() => openForm(i)}>
+                <IconButton
+                  onClick={() => {
+                    setFormTarget(item);
+                    setShowForm(true);
+                  }}
+                >
                   <CreateIcon />
                 </IconButton>
               </TableCell>

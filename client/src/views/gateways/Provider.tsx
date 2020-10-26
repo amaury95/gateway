@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { CircularProgress } from "@material-ui/core";
 import { Centered } from "components/styled";
-import { GatewayEdges } from "models";
+import { Gateway } from "models";
 import React, { Component } from "react";
 import GatewaysList from "./List";
 
@@ -61,7 +61,7 @@ export default function GatewaysProvider() {
 type GatewayPageWithDataProps = {
   subscriptionFunction: () => void;
 
-  data?: { items: GatewayEdges[] };
+  data?: { items: Gateway[] };
   loading?: boolean;
 };
 

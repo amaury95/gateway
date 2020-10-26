@@ -6,14 +6,14 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import { Gateway, GatewayEdges } from "models";
-import React, { useContext, useState } from "react";
+import { Gateway } from "models";
+import React, { useState } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { SetGatewayForm } from "store/actions";
-import { Store } from "store";
 import PeripheralsList from "views/peripherals/List";
 import CreateIcon from "@material-ui/icons/Create";
 import AddIcon from "@material-ui/icons/Add";
+import GatewayForm from "./Form";
+import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
   editButton: {
     marginLeft: 30,
+    color: red[500],
   },
 }));
 
-export default function GatewaysList(props: { items: GatewayEdges[] }) {
+export default function GatewaysList(props: { items: Gateway[] }) {
   const classes = useStyles();
-  const { dispatch } = useContext(Store);
 
   const [expanded, setExpanded] = React.useState<string | false>(false);
   const handleChange = (panel: string) => (
@@ -46,20 +46,33 @@ export default function GatewaysList(props: { items: GatewayEdges[] }) {
   ) => {
     setExpanded(isExpanded ? panel : false);
   };
-  const openForm = (item: Gateway) => dispatch(SetGatewayForm(item, "open"));
 
-  const [gateways, setGateways] = useState([...props.items]);
+  const [showForm, setShowForm] = useState(false);
+  const [formTarget, setFormTarget] = useState({} as Gateway);
+  const toggleShow = () => setShowForm(!showForm);
 
   return (
     <div className={classes.root}>
-      <Accordion onClick={() => openForm({} as Gateway)} expanded={false}>
+      <GatewayForm
+        open={showForm}
+        handleClose={toggleShow}
+        target={formTarget}
+        setTarget={setFormTarget}
+      />
+      <Accordion
+        onClick={() => {
+          setFormTarget({} as Gateway);
+          setShowForm(true);
+        }}
+        expanded={false}
+      >
         <AccordionSummary>
           <Button color="primary" startIcon={<AddIcon />}>
             Create Gateway
           </Button>
         </AccordionSummary>
       </Accordion>
-      {gateways.map((item) => (
+      {props.items.map((item) => (
         <Accordion
           expanded={expanded === item.id}
           onChange={handleChange(item.id)}
@@ -82,7 +95,10 @@ export default function GatewaysList(props: { items: GatewayEdges[] }) {
             <Button
               color="primary"
               startIcon={<CreateIcon />}
-              onClick={() => openForm(item)}
+              onClick={() => {
+                setFormTarget(item);
+                setShowForm(true);
+              }}
             >
               Edit Gateway
             </Button>
