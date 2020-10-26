@@ -1,6 +1,6 @@
 import Form, { TransitionUp } from "components/form";
-import { Peripheral } from "models";
-import React, { useContext, useState } from "react";
+// import { Peripheral } from "models";
+import React, { useContext } from "react";
 import { Store } from "store";
 import { SetPeripheralForm } from "store/actions";
 
@@ -8,8 +8,8 @@ export default function PeripheralForm() {
   const { state, dispatch } = useContext(Store);
 
   const { item, status } = state.peripheralForm;
-  const setItem = (value: Peripheral) =>
-    dispatch(SetPeripheralForm(item, status));
+  // const setItem = (value: Peripheral) =>
+  //   dispatch(SetPeripheralForm(item, status));
 
   const handleClose = () => dispatch(SetPeripheralForm(item, "closed"));
 

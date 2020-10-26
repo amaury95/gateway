@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import BaseLayout from "layouts/Base";
-import Gateways from "views/gateways/List";
 import { Store } from "store";
 import { createMuiTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
 import { defaultTheme } from "themes/default";

@@ -2,9 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import { CircularProgress } from "@material-ui/core";
 import { Centered } from "components/styled";
 import { GatewayEdges } from "models";
-import React, { useContext } from "react";
-import { Store } from "store";
-import { SetNotification } from "store/actions";
+import React, { Component } from "react";
 import GatewaysList from "./List";
 
 const GATEWAY_EDGES_QUERY = gql`
@@ -28,32 +26,70 @@ const GATEWAY_EDGES_QUERY = gql`
   }
 `;
 
+const GATEWAY_CREATED_SUBSCRIPTION = gql`
+  subscription CreateGateway {
+    item: gatewayCreated {
+      id
+      serial
+      name
+      address
+    }
+  }
+`;
+
 export default function GatewaysProvider() {
-  const { dispatch } = useContext(Store);
+  const { subscribeToMore, ...result } = useQuery(GATEWAY_EDGES_QUERY);
 
-  const { data, loading, error } = useQuery<{ items: GatewayEdges[] }>(
-    GATEWAY_EDGES_QUERY
+  return (
+    <GatewayPageWithData
+      {...result}
+      subscriptionFunction={() =>
+        subscribeToMore({
+          document: GATEWAY_CREATED_SUBSCRIPTION,
+          updateQuery: (prev, { subscriptionData }) => {
+            if (!subscriptionData.data) return prev;
+            const item = subscriptionData.data.item;
+            console.log(subscriptionData);
+            return Object.assign({}, prev, { items: [item] });
+          },
+        })
+      }
+    />
   );
+}
 
-  if (loading) {
+type GatewayPageWithDataProps = {
+  subscriptionFunction: () => void;
+
+  data?: { items: GatewayEdges[] };
+  loading?: boolean;
+};
+
+export class GatewayPageWithData extends Component<GatewayPageWithDataProps> {
+  componentDidMount() {
+    this.props.subscriptionFunction();
+  }
+
+  render() {
+    if (this.props.loading) {
+      return (
+        <Centered>
+          <CircularProgress />
+        </Centered>
+      );
+    }
+
+    if (this.props.data) {
+      return <GatewaysList items={this.props.data.items} />;
+    }
+
     return (
       <Centered>
-        <CircularProgress />
+        <h5>
+          It looks like you have a connection error. Please contact developer
+          for support.
+        </h5>
       </Centered>
     );
   }
-
-  if (error) {
-    dispatch(SetNotification(error.message, "alert"));
-  }
-
-  if (data) {
-    return <GatewaysList items={data.items} />;
-  }
-
-  return (
-    <Centered>
-      <h1>Your connection is broken. Please contact developer for support.</h1>
-    </Centered>
-  );
 }
