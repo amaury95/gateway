@@ -1,27 +1,30 @@
-GET http://localhost:8080/api/gateways
+GET http://localhost:8000/api/gateways
 
 ###
-GET http://localhost:8080/api/gateways/5f92f9486987ce1940d8d466
+GET http://localhost:8000/api/gateways/5f96f03539867657283831b4
 
 ###
-POST http://localhost:8080/api/gateways
+POST http://localhost:8000/api/gateways
 Content-Type: application/json
 
 {
   "name": "tres",
-  "ipAddr": "10.2.3.12",
-  "serialNo":"f498395tss3p4"
+  "address": "10.2.3.12",
+  "serial":"refsdf"
 }
 
 ###
-PUT http://localhost:8080/api/gateways/5f92f9486987ce1940d8d466
+PATCH http://localhost:8000/api/gateways/5f96f03539867657283831b4
 Content-Type: application/json
 
 {
   "name": "tres",
-  "ipAddr": "10.2.3.12",
-  "serialNo":"f498395tss3p4"
+  "address": "10.2.3.12",
+  "serial":"f498395tss3p4"
 }
 
 ###
-DELETE http://localhost:8080/api/gateways/5f92f9486987ce1940d8d466
+DELETE http://localhost:8000/api/gateways/5f96f03539867657283831b4
+
+###
+GET GET http://localhost:8000/api/gateways/5f96f03539867657283831b4/peripherals

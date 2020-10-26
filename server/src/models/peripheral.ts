@@ -1,7 +1,7 @@
 import { getModelForClass, Ref, prop } from "@typegoose/typegoose";
 
 export class Peripheral {
-  @prop()
+  @prop({ unique: true })
   public uid: number;
 
   @prop()
@@ -9,6 +9,9 @@ export class Peripheral {
 
   @prop()
   public date: Date;
+
+  @prop()
+  public gatewayId: string;
 }
 
 export default getModelForClass(Peripheral);

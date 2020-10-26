@@ -15,7 +15,6 @@ export async function index(req: Request, res: Response) {
 export async function show(req: Request, res: Response) {
   // @ts-ignore
   const gateway: Gateway = req.gateway;
-
   res.send(gateway);
 }
 
@@ -33,30 +32,51 @@ export async function create(req: Request, res: Response) {
 // PATCH /gateways/1
 export async function update(req: Request, res: Response) {
   // @ts-ignore
-  const gateway: Gateway = req.gateway;
-
-  const data = "host";
-  res.send({ data });
+  const gateway: GatewayModel = req.gateway;
+  try {
+    const data = await gateway.update(req.body);
+    res.json(data);
+  } catch (e) {
+    res.status(500).json(e);
+  }
 }
 
 // DELETE /gateways/1
 export async function destroy(req: Request, res: Response) {
   // @ts-ignore
-  const gateway: Gateway = req.gateway;
+  const gateway: GatewayModel = req.gateway;
 
-  const data = "host";
-  res.send({ data });
+  try {
+    await gateway.deleteOne();
+    res.json(gateway);
+  } catch (e) {
+    res.status(500).json(e);
+  }
 }
 
 // GET /gateways/1/peripherals
-export async function peripherals(req: Request, res: Response) {}
+export async function peripherals(req: Request, res: Response) {
+  // @ts-ignore
+  const gateway: GatewayModel = req.gateway;
+  try {
+    res.json(gateway.peripherals);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+}
 
 // MIDDLEWARES
-export async function set_gateway(req: Request, res: Response, next: NextFunction) {
-  const gateway = new GatewayModel();
-  gateway.name = "fake name";
-
-  // @ts-ignore
-  req.gateway = gateway;
-  next();
+export async function set_gateway(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const gateway = await GatewayModel.findById(req.params.id);
+    // @ts-ignore
+    req.gateway = gateway;
+    next();
+  } catch (e) {
+    res.status(500).json(e);
+  }
 }
