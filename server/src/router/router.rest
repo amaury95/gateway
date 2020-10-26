@@ -1,30 +1,30 @@
 GET http://localhost:8000/api/gateways
 
 ###
-GET http://localhost:8000/api/gateways/5f96f03539867657283831b4
-
-###
 POST http://localhost:8000/api/gateways
 Content-Type: application/json
 
 {
-  "name": "tres",
-  "address": "10.2.3.12",
-  "serial":"refsdf"
+  "name": "Mask",
+  "address": "255.255.255.0",
+  "serial":"serial1"
 }
 
 ###
-PATCH http://localhost:8000/api/gateways/5f96f03539867657283831b4
+GET http://localhost:8000/api/gateways/5f97207de3d9681e083aaac8
+
+###
+PATCH http://localhost:8000/api/gateways/5f97207de3d9681e083aaac8
 Content-Type: application/json
 
 {
-  "name": "tres",
-  "address": "10.2.3.12",
-  "serial":"f498395tss3p4"
+  "name": "Gateway",
+  "address": "10.22.3.12",
+  "serial":"serial2"
 }
 
 ###
-DELETE http://localhost:8000/api/gateways/5f96f03539867657283831b4
+GET http://localhost:8000/api/gateways/5f97207de3d9681e083aaac8/peripherals
 
 ###
-GET GET http://localhost:8000/api/gateways/5f96f03539867657283831b4/peripherals
+DELETE http://localhost:8000/api/gateways/5f97207de3d9681e083aaac8
