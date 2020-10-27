@@ -1,8 +1,8 @@
 import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString } from "graphql";
-import { Peripheral, PeripheralType } from "./peripheral";
+import { PeripheralType } from "./peripheral";
 
 export type Gateway = {
-  id: string;
+  _id: string;
   serial: string;
   name: string;
   address: string;
@@ -13,7 +13,7 @@ export const GatewayType = new GraphQLObjectType({
   fields: {
     id: {
       type: GraphQLID,
-      resolve: (source: Gateway): string => source.id,
+      resolve: (source: Gateway): string => source._id,
     },
     serial: {
       type: GraphQLString,
@@ -34,7 +34,7 @@ export const GatewayType = new GraphQLObjectType({
           peripherals: {
             type: GraphQLList(PeripheralType),
             resolve: async (source: Gateway, _args, { dataSources }) =>
-              dataSources.gatewaysAPI.getPeripherals(source.id),
+              dataSources.gatewaysAPI.getPeripherals(source._id),
           },
         },
       }),

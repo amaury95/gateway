@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { dbaddr } from "../../setup";
-import GatewayModel from "../../models/gateway";
-import PeripheralModel, { Peripheral } from "../../models/peripheral";
+import GatewayModel from "../gateway";
+import PeripheralModel, { Peripheral } from "../peripheral";
 
 mongoose.connect(dbaddr("unit-test"), { useNewUrlParser: true });
 

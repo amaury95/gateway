@@ -4,7 +4,6 @@ import * as serviceWorker from "./serviceWorker";
 import App from "./App";
 
 import "./index.css";
-import "semantic-ui-css/semantic.min.css";
 import StoreProvider from "store";
 import { ApolloProvider } from "@apollo/client";
 import client from "apollo";

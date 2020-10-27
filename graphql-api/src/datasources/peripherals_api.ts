@@ -1,10 +1,11 @@
 import { RESTDataSource } from "apollo-datasource-rest";
 import { Peripheral } from "../types/peripheral";
+import { addr } from "./setup";
 
 export default class PeripheralAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = "http://localhost:3000/";
+    this.baseURL = addr;
   }
 
   async getPeripherals(): Promise<Peripheral[]> {

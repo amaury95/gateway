@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 import app from "./server";
 
-import { port, dbaddr, env } from "./setup";
+import { host, port, dbaddr, env } from "./setup";
 
 mongoose.connect(dbaddr(env), { useNewUrlParser: true });
 
-app.listen(port, () => {
+app.listen(port, host, () => {
   // tslint:disable-next-line:no-console
-  console.log(`server started at http://localhost:${port}`);
+  console.log(`server started at http://${host}:${port}`);
 });

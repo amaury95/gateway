@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import { range } from "lodash";
 import { dbaddr } from "../../setup";
-import GatewayModel, { Gateway } from "../../models/gateway";
-import PeripheralModel from "../../models/peripheral";
+import GatewayModel, { Gateway } from "../gateway";
+import PeripheralModel from "../peripheral";
 
 mongoose.connect(dbaddr("unit-test"), { useNewUrlParser: true });
 

@@ -1,10 +1,4 @@
-import {
-  GraphQLEnumType,
-  GraphQLID,
-  GraphQLInt,
-  GraphQLObjectType,
-  GraphQLString,
-} from "graphql";
+import { GraphQLEnumType, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString } from "graphql";
 
 export enum PeripheralStatus {
   offline,
@@ -20,7 +14,7 @@ export const PeripheralStatusType = new GraphQLEnumType({
 });
 
 export type Peripheral = {
-  id: string;
+  _id: string;
   uid: number;
   gatewayId: string;
   vendor: string;
@@ -33,7 +27,7 @@ export const PeripheralType = new GraphQLObjectType({
   fields: {
     id: {
       type: GraphQLID,
-      resolve: (source: Peripheral): string => source.id,
+      resolve: (source: Peripheral): string => source._id,
     },
     gatewayId: {
       type: GraphQLString,

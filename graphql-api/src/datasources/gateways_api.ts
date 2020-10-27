@@ -1,11 +1,12 @@
 import { RESTDataSource } from "apollo-datasource-rest";
 import { Peripheral } from "../types/peripheral";
 import { Gateway } from "../types/gateway";
+import { addr } from "./setup";
 
 export default class GatewayAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = "http://localhost:3000/";
+    this.baseURL = addr;
   }
 
   async getGateways(): Promise<Gateway[]> {
