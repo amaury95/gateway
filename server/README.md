@@ -73,6 +73,6 @@ Both models keeps default `_id` that mongodb ODM's provides for the documents. A
 
 - About `uid`, I didnt knew if it was intended to be the indentificator, could be maybe "userId" or something.
 
-Anyways, mongoose provides an easy way to aoid default `_id` and setup custom identificators.
+Anyways, mongoose provides an easy way to avoid default `_id` and setup custom identificators.
 
 Also mongo provides both relation types between Models, Embeded and Relations <i>(like relationals databases)</i>. In this project the Relational approach was used, because is easier to find, edit, delete a Peripheral given that they have their own Collection. Otherwise, to find a Peripheral with a given uid there can be heavy for the system to iterate over each Gateway.
