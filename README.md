@@ -26,7 +26,7 @@ docker-compose up -d client
 
 To run the solution in a host environment follow the instructions:
 
-- execute `mongodb` (_or run_ `docker-compose up -d mongodb`)
+- execute `mongodb` (_or run_ `docker-compose up -d mongodb`) in your host.
 - go to `/server` location and run:
 
 ```sh
