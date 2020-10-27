@@ -63,3 +63,9 @@ For testing manually the rest api you shoudl install the [Visual Studio Code](ht
 Then open the file `/serversrc/router/router.rest` in the VSCode.
 
 Modify as you whish.
+
+Open [Graphql Playground](http://localhost:4000) for testing the grapql api as well as the websocket subscriptions.
+
+### Future work and errors
+
+- The subscriptions running in docker environment doesnt work. The page must be refreshed in order to watch the changes.
