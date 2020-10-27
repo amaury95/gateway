@@ -18,3 +18,45 @@ For example purposes the project is configured totally using [**Docker**](https:
 ```sh
 docker-compose up
 ```
+
+### Local deploy
+
+To run the solution in a host environment follow the instructions:
+
+- execute `mongodb` (_or run_ `docker-compose up -d mongodb`)
+- go to `/server` location and run:
+
+```sh
+npm install
+npm run build
+npm test
+```
+
+- if tests passes then you can proceed to run the service:
+
+```sh
+npm start
+```
+
+- go to the location `/gatwway-api` and run:
+
+```sh
+npm install
+npm run build
+npm start
+```
+
+- go to the location `/client` and run:
+
+```sh
+npm install
+npm start
+```
+
+### Testing manually the rest api
+
+For testing manually the rest api you shoudl install the [Visual Studio Code](https://code.visualstudio.com/download) and its extension [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+
+Then open the file `/serversrc/router/router.rest` in the VSCode.
+
+Modify as you whish.
