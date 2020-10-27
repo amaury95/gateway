@@ -16,8 +16,11 @@ For example purposes the project is configured totally using [**Docker**](https:
 ### Deploy
 
 ```sh
-docker-compose up
+docker-compose up -d mongodb # So mongo setup finishes before the app try to connect.
+docker-compose up -d client
 ```
+
+[Open browser](http://localhost:9000)
 
 ### Local deploy
 
