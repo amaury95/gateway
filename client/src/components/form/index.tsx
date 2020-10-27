@@ -14,7 +14,7 @@ import React, { FunctionComponent } from "react";
 
 export const useStyles = makeStyles({
   root: {
-    width: 300,
+    width: 500,
   },
   input: {
     marginTop: 10,
@@ -68,9 +68,7 @@ const Form: FunctionComponent<FormProps> = (props) => {
       aria-labelledby="alert-dialog-peripheral-title"
       aria-describedby="alert-dialog-peripheral-description"
     >
-      <DialogTitle id="alert-dialog-peripheral-title">
-        {props.title}
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-peripheral-title">{props.title}</DialogTitle>
       <DialogContent className={classes.root}>
         {props.description && (
           <DialogContentText id="alert-dialog-peripheral-description">

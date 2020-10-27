@@ -85,10 +85,7 @@ export class GatewayPageWithData extends Component<GatewayPageWithDataProps> {
 
     return (
       <Centered>
-        <h5>
-          It looks like you have a connection error. Please contact developer
-          for support.
-        </h5>
+        <h5>It looks like you have a connection error. Please contact developer for support.</h5>
       </Centered>
     );
   }

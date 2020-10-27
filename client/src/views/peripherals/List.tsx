@@ -33,21 +33,23 @@ export default function PeripheralsList(props: PeripheralsList) {
         setTarget={setFormTarget}
       />
       <Table aria-label="caption table">
-        <caption>
-          <Button
-            color="primary"
-            startIcon={<AddIcon />}
-            onClick={() => {
-              setFormTarget({
-                gatewayId: props.id,
-                status: "offline",
-              } as Peripheral);
-              setShowForm(true);
-            }}
-          >
-            Add Peripheral
-          </Button>
-        </caption>
+        {props.items.length < 10 && (
+          <caption>
+            <Button
+              color="primary"
+              startIcon={<AddIcon />}
+              onClick={() => {
+                setFormTarget({
+                  gatewayId: props.id,
+                  status: "offline",
+                } as Peripheral);
+                setShowForm(true);
+              }}
+            >
+              Add Peripheral
+            </Button>
+          </caption>
+        )}
         <TableHead>
           <TableRow>
             <TableCell>Vendor</TableCell>

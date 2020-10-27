@@ -3,7 +3,9 @@ import { IconButton, TextField } from "@material-ui/core";
 import Form, { TransitionDown, useStyles } from "components/form";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { Gateway } from "models";
-import React from "react";
+import React, { useContext } from "react";
+import { Store } from "store";
+import { SetNotification } from "store/actions";
 
 const ADD_GATEWAY = gql`
   mutation CreateGateway($serial: String, $name: String, $address: String) {
@@ -16,12 +18,7 @@ const ADD_GATEWAY = gql`
   }
 `;
 const EDIT_GATEWAY = gql`
-  mutation UpdateGatwway(
-    $id: ID!
-    $serial: String
-    $name: String
-    $address: String
-  ) {
+  mutation UpdateGatwway($id: ID!, $serial: String, $name: String, $address: String) {
     updateGateway(id: $id, name: $name, serial: $serial, address: $address) {
       id
       name
@@ -57,27 +54,45 @@ export interface FormProps<T> {
 }
 
 export default function GatewayForm(props: FormProps<Gateway>) {
-  const classes = useStyles();
   const { target, setTarget } = props;
+
+  const classes = useStyles();
+  const { dispatch } = useContext(Store);
 
   const newItem = target.id === undefined;
 
   const formTitle = newItem ? "Create Gateway" : "Edit Gateway";
+  const successMessage = newItem ? "Gateway created" : "Gateway saved";
   const mutation = newItem ? ADD_GATEWAY : EDIT_GATEWAY;
 
-  const [addGateway] = useMutation(mutation);
+  const [addGateway] = useMutation(mutation, { errorPolicy: "all" });
 
-  const onSubmit = () =>
-    addGateway({ variables: target })
-      .then(props.handleClose)
-      .catch((e) => console.log(e));
+  const onSubmit = () => {
+    addGateway({ variables: target }).then(({ errors }) => {
+      if (errors) {
+        errors.forEach((err) => {
+          dispatch(SetNotification(err.extensions?.response.body.error, "error"));
+        });
+      } else {
+        dispatch(SetNotification(successMessage, "success"));
+        props.handleClose();
+      }
+    });
+  };
 
-  const [removeGateway] = useMutation(DESTROY_GATEWAY);
+  const [removeGateway] = useMutation(DESTROY_GATEWAY, { errorPolicy: "all" });
 
   const onRemove = () =>
-    removeGateway({ variables: target })
-      .then(props.handleClose)
-      .catch((e) => console.log(e));
+    removeGateway({ variables: target }).then(({ errors }) => {
+      if (errors) {
+        errors.forEach((err) => {
+          dispatch(SetNotification(err.extensions?.response.body.error, "error"));
+        });
+      } else {
+        dispatch(SetNotification("Gateway deleted", "warning"));
+        props.handleClose();
+      }
+    });
 
   return (
     <Form
@@ -110,7 +125,7 @@ export default function GatewayForm(props: FormProps<Gateway>) {
       <TextField
         fullWidth
         value={target.address}
-        placeholder="IPv4"
+        placeholder="IPv4 Address"
         className={classes.input}
         onChange={(e) => setTarget({ ...target, address: e.target.value })}
       />

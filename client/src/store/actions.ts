@@ -1,4 +1,5 @@
-import { Notification, NotificationType } from "./types";
+import { Color } from "@material-ui/lab/Alert";
+import { Notification } from "./types";
 
 // Action interface
 export interface IAction {
@@ -18,7 +19,7 @@ export interface INotificationAction extends IAction {
 
 let notif = 0;
 
-export function SetNotification(message: string, type: NotificationType): INotificationAction {
+export function SetNotification(message: string, type: Color): INotificationAction {
   return {
     type: SET_NOTIFICATION,
     payload: new Notification(type, message, notif++),

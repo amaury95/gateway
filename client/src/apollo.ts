@@ -16,10 +16,7 @@ const wsLink = new WebSocketLink({
 const link = split(
   ({ query }) => {
     const definition = getMainDefinition(query);
-    return (
-      definition.kind === "OperationDefinition" &&
-      definition.operation === "subscription"
-    );
+    return definition.kind === "OperationDefinition" && definition.operation === "subscription";
   },
   wsLink,
   httpLink
@@ -31,4 +28,7 @@ const cache = new InMemoryCache({
   },
 });
 
-export default new ApolloClient({ link, cache });
+export default new ApolloClient({
+  link,
+  cache,
+});

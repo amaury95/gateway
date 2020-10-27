@@ -40,10 +40,7 @@ export default function GatewaysList(props: { items: Gateway[] }) {
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState<string | false>(false);
-  const handleChange = (panel: string) => (
-    event: React.ChangeEvent<{}>,
-    isExpanded: boolean
-  ) => {
+  const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
 
@@ -73,23 +70,15 @@ export default function GatewaysList(props: { items: Gateway[] }) {
         </AccordionSummary>
       </Accordion>
       {props.items.map((item) => (
-        <Accordion
-          expanded={expanded === item.id}
-          onChange={handleChange(item.id)}
-          key={item.id}
-        >
+        <Accordion expanded={expanded === item.id} onChange={handleChange(item.id)} key={item.id}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${item.id}bh-content`}
             id={`panel${item.id}bh-header`}
           >
             <Typography className={classes.item}>{item.name}</Typography>
-            <Typography className={classes.secondaryItem}>
-              {item.serial}
-            </Typography>
-            <Typography className={classes.secondaryItem}>
-              {item.address}
-            </Typography>
+            <Typography className={classes.secondaryItem}>{item.serial}</Typography>
+            <Typography className={classes.secondaryItem}>{item.address}</Typography>
           </AccordionSummary>
           <div className={classes.editButton}>
             <Button
