@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { dbaddr } from "../../setup";
 import GatewayModel from "../gateway";
-import PeripheralModel, { Peripheral } from "../peripheral";
+import PeripheralModel, { PeripheralStatus } from "../peripheral";
 
 mongoose.connect(dbaddr("unit-test"), { useNewUrlParser: true });
 
@@ -27,14 +27,20 @@ describe("Peripheral model test", () => {
         serial: "123456",
       });
 
-      const record = await PeripheralModel.create({
+      const model = {
+        status: PeripheralStatus.online,
         gatewayId: parent.id,
-        uid: 1,
         vendor: "vendor",
-        created: Date.now(),
-      });
+        uid: 1,
+      };
+
+      const record = await PeripheralModel.create(model);
 
       expect(record).toBeDefined();
+      expect(record.gatewayId).toBe(model.gatewayId);
+      expect(record.status).toBe(model.status);
+      expect(record.vendor).toBe(model.vendor);
+      expect(record.uid).toBe(model.uid);
     });
 
     it("should fail creating a peripheral with duplicated uid", async () => {
@@ -53,9 +59,9 @@ describe("Peripheral model test", () => {
       try {
         const record = await PeripheralModel.create({
           gatewayId: parent.id,
-          uid: 1,
-          vendor: "vendor",
           created: Date.now(),
+          vendor: "vendor",
+          uid: 1,
         });
         expect(record).toBeUndefined();
       } catch (err) {

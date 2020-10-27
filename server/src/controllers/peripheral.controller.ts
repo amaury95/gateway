@@ -40,6 +40,7 @@ export async function update(req: Request, res: Response) {
   const model = {
     gatewayId: req.body.gatewayId || peripheral.gatewayId,
     vendor: req.body.vendor || peripheral.vendor,
+    status: req.body.status || peripheral.status,
     uid: req.body.uid || peripheral.uid,
   };
 

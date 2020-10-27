@@ -2,6 +2,11 @@ import { DocumentType, getModelForClass, pre, prop } from "@typegoose/typegoose"
 import { Error } from "mongoose";
 import GatewayModel from "./gateway";
 
+export enum PeripheralStatus {
+  offline,
+  online,
+}
+
 @pre<Peripheral>("validate", async function (next) {
   const err = await this.validateParentLimit();
   if (err) next(err);
@@ -13,10 +18,13 @@ export class Peripheral {
   public uid: number;
 
   @prop()
-  public vendor: string;
+  public vendor?: string;
 
   @prop({ immutable: true, default: Date.now })
-  public created: Date;
+  public created?: Date;
+
+  @prop({ default: PeripheralStatus.offline })
+  public status?: PeripheralStatus;
 
   @prop({ required: true })
   public gatewayId: string;
