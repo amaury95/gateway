@@ -1,4 +1,4 @@
-# Welcome to Gateway!
+# Welcome to Gateway
 
 Gateway is an **example project** of an application using various **Javascript Frameworks** and their utilities.
 
