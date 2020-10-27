@@ -6,10 +6,6 @@ import {
   DEL_NOTIFICATION,
   CLS_NOTIFICATION,
   TOGGLE_THEME,
-  SET_GATEWAY_FORM,
-  ISetGatewayFormAction,
-  SET_PERIPHERAL_FORM,
-  ISetPeripheralFormAction,
 } from "./actions";
 
 export const reducer: React.Reducer<State, Action> = (state, action) => {
@@ -36,18 +32,6 @@ export const reducer: React.Reducer<State, Action> = (state, action) => {
     // THEME
     case TOGGLE_THEME: {
       return { ...state, theme: state.theme === "light" ? "dark" : "light" };
-    }
-
-    // GATEWAY FORM
-    case SET_GATEWAY_FORM: {
-      const { payload } = action as ISetGatewayFormAction;
-      return { ...state, gatewayForm: payload };
-    }
-
-    // PERIPHERAL FORM
-    case SET_PERIPHERAL_FORM: {
-      const { payload } = action as ISetPeripheralFormAction;
-      return { ...state, peripheralForm: payload };
     }
 
     // Nothing matched
