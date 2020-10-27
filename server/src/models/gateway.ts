@@ -18,7 +18,6 @@ export class Gateway {
     ref: () => Peripheral,
     localField: "_id",
     foreignField: "gatewayId",
-    maxlength: 10,
   })
   public peripherals?: Ref<Peripheral>[];
 }

@@ -10,22 +10,22 @@ Content-Type: application/json
 {
   "name": "Mask",
   "address": "255.255.255.0",
-  "serial":"serial1"
+  "serial":"serial11"
 }
 
 ###
 # Get Gateway by Id
-GET http://localhost:8000/api/gateways/5f972f52915db213ccae7102
+GET http://localhost:8000/api/gateways/5f97675d32ae25193c16b52d
 
 ###
 # Edit Gateway
-PATCH http://localhost:8000/api/gateways/5f972f52915db213ccae7102
+PATCH http://localhost:8000/api/gateways/5f97660cfc1dfa30a8107ec7
 Content-Type: application/json
 
 {
-  "name": "Gateway",
-  "address": "10.22.3.12",
-  "serial":"serial3"
+ "address": "10.0.2.3",
+ "serial": "serial2",
+ "name": "this is the name"
 }
 
 # Get Peripherals
@@ -38,9 +38,9 @@ POST http://localhost:8000/api/peripherals
 Content-Type: application/json
 
 {
-  "uid": 44,
+  "uid": 31,
   "vendor": "vendor",
-  "gatewayId": "5f97207de3d9681e083aaac8"
+  "gatewayId": "5f97675d32ae25193c16b52d"
 }
 
 ###
@@ -63,8 +63,8 @@ DELETE http://localhost:8000/api/peripherals/5f972faa915db213ccae7103
 
 ###
 # Get Peripherals by Given Gateway
-GET http://localhost:8000/api/gateways/5f972f52915db213ccae7102/peripherals
+GET http://localhost:8000/api/gateways/5f97675d32ae25193c16b52d/peripherals
 
 # Delete Gateway
 ###
-DELETE http://localhost:8000/api/gateways/5f972f52915db213ccae7102
+DELETE http://localhost:8000/api/gateways/5f97675d32ae25193c16b52d

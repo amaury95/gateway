@@ -68,11 +68,7 @@ export async function destroy(req: Request, res: Response) {
 }
 
 // MIDDLEWARES
-export async function set_peripheral(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function set_peripheral(req: Request, res: Response, next: NextFunction) {
   await PeripheralModel.findOne({ _id: req.params.id }).exec((err, item) => {
     if (err) {
       res.status(500).send({ error: err.message });

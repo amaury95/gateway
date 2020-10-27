@@ -1,28 +1,9 @@
-import express from "express";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
-import router from "./router";
+import app from "./server";
 
-dotenv.config();
-const port = process.env.SERVER_PORT;
+import { port, dbaddr, env } from "./setup";
 
-mongoose.connect(process.env.MONGO_ADDR, { useNewUrlParser: true });
-
-const app = express();
-
-app.use(express.json());
-app.use((req, res, next) => {
-  // tslint:disable-next-line:no-console
-  console.log(
-    Intl.DateTimeFormat("en").format(Date.now()),
-    req.method,
-    req.path,
-    req.body
-  );
-  next();
-});
-
-app.use("/api", router);
+mongoose.connect(dbaddr(env), { useNewUrlParser: true });
 
 app.listen(port, () => {
   // tslint:disable-next-line:no-console
