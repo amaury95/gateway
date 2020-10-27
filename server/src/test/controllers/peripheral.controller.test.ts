@@ -9,6 +9,11 @@ import { range } from "lodash";
 mongoose.connect(dbaddr("integration-test"), { useNewUrlParser: true });
 
 describe("Peripheral controller integration testing", () => {
+  beforeAll(async () => {
+    await PeripheralModel.remove({});
+    await GatewayModel.remove({});
+  });
+
   afterAll(async () => {
     await mongoose.connection.close();
   });
@@ -19,7 +24,7 @@ describe("Peripheral controller integration testing", () => {
 
       const model = await GatewayModel.create({
         address: "10.0.2.2",
-        serial: "serial",
+        serial: Math.random().toString(),
         name: "gateway",
       });
 
@@ -28,7 +33,7 @@ describe("Peripheral controller integration testing", () => {
           await PeripheralModel.create({
             created: Date.now(),
             gatewayId: model.id,
-            uid: i,
+            uid: Math.random(),
             vendor: "vendor",
           });
         })

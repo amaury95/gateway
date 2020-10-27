@@ -10,11 +10,46 @@ import faker from "faker";
 mongoose.connect(dbaddr("integration-test"), { useNewUrlParser: true });
 
 describe("Gateway controller integration testing", () => {
+  beforeAll(async () => {
+    await PeripheralModel.remove({});
+    await GatewayModel.remove({});
+  });
+
   afterAll(async () => {
     await mongoose.connection.close();
   });
 
   describe("test gateway endpoints", () => {
+    it("should retrieve gateway relations", async () => {
+      const size = 10;
+
+      const model = await GatewayModel.create({
+        address: "10.0.2.2",
+        serial: Math.random().toString(),
+        name: "gateway",
+      });
+
+      await Promise.all(
+        range(size).map(async (i) => {
+          await PeripheralModel.create({
+            vendor: "vendor" + i,
+            gatewayId: model.id,
+            uid: Math.random(),
+            created: Date.now(),
+          });
+        })
+      );
+
+      request(app)
+        .get(`/api/gateways/${model.id}/peripherals`)
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .end((err, res) => {
+          expect(err).toBeNull();
+          expect(res.body.length).toBe(size);
+        });
+    });
+
     it("should retrieve a list of gateways", async () => {
       const size = 1;
 
@@ -22,7 +57,7 @@ describe("Gateway controller integration testing", () => {
         range(size).map(async (i) => {
           await GatewayModel.create({
             address: "10.0.2.2",
-            serial: faker.name.firstName(),
+            serial: Math.random().toString(),
             name: "gateway",
           });
         })
@@ -40,7 +75,7 @@ describe("Gateway controller integration testing", () => {
     it("should retrieve a gateway", async () => {
       const model = await GatewayModel.create({
         address: "10.0.2.2",
-        serial: faker.name.firstName(),
+        serial: Math.random().toString(),
         name: "gateway",
       });
 
@@ -58,7 +93,7 @@ describe("Gateway controller integration testing", () => {
     it("should create and return a gateway", async () => {
       const data: Gateway = {
         address: "10.0.2.2",
-        serial: faker.name.firstName(),
+        serial: Math.random().toString(),
         name: "gateway",
       };
 
@@ -77,14 +112,13 @@ describe("Gateway controller integration testing", () => {
     it("should update a gateway", async () => {
       const model = await GatewayModel.create({
         address: "10.0.2.2",
-        serial: faker.name.firstName(),
+        serial: Math.random().toString(),
         name: "gateway",
       });
 
       const data: Gateway = {
         address: "10.0.2.3",
-        serial: faker.name.firstName(),
-        name: "this is the name",
+        serial: Math.random().toString(),
       };
 
       request(app)
@@ -93,17 +127,17 @@ describe("Gateway controller integration testing", () => {
         .expect("Content-Type", /json/)
         .expect(205)
         .end((err, res) => {
-          // expect(err).toBeNull();
-          // expect(res.body.address).toEqual(data.address);
-          // expect(res.body.serial).toEqual(data.serial);
-          // expect(res.body.name).toEqual(model.name);
+          expect(err).toBeNull();
+          expect(res.body.address).toEqual(data.address);
+          expect(res.body.serial).toEqual(data.serial);
+          expect(res.body.name).toEqual(model.name);
         });
     });
 
     it("should delete a gateway", async () => {
       const model = await GatewayModel.create({
         address: "10.0.2.2",
-        serial: faker.name.firstName(),
+        serial: Math.random().toString(),
         name: "gateway",
       });
 
@@ -113,36 +147,6 @@ describe("Gateway controller integration testing", () => {
         .expect(200)
         .end((err, res) => {
           expect(err).toBeNull();
-        });
-    });
-
-    it("should retrieve gateway relations", async () => {
-      const size = 10;
-
-      const model = await GatewayModel.create({
-        address: "10.0.2.2",
-        serial: faker.name.firstName(),
-        name: "gateway",
-      });
-
-      await Promise.all(
-        range(size).map(async (i) => {
-          await PeripheralModel.create({
-            vendor: "vendor" + i,
-            gatewayId: model.id,
-            uid: i,
-            created: Date.now(),
-          });
-        })
-      );
-
-      request(app)
-        .delete(`/api/gateways/${model.id}/peripherals`)
-        .expect("Content-Type", /json/)
-        .expect(200)
-        .end((err, res) => {
-          expect(err).toBeNull();
-          expect(res.body.length).toBe(size);
         });
     });
   });
